@@ -1,0 +1,9 @@
+.min-vh-50 {
+    min-height: 50vh;
+}
+
+.error-text {
+    padding: 5px;
+    font-size: 12px;
+    color: #0a53be;
+}

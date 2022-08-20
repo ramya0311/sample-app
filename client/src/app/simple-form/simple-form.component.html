@@ -1,0 +1,57 @@
+<div class="d-flex container vh-100 flex-row align-items-center">
+    <div class="flex-fill shadow-lg p-3 mb-5 bg-body rounded min-vh-50">
+        <h5 class="text-center">Simple Form</h5>
+        <form [formGroup]="simpleForm">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Enter First Name" [class.is-invalid]="isVaildField('firstName')" />
+                        <label for="firstName">First Name</label>
+                    </div>
+                    <div *ngIf="isVaildField('firstName')" class="error-text">
+                        First Name is required.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Enter Last Name" [class.is-invalid]="isVaildField('lastName')" />
+                        <label for="lastName">Last Name</label>
+                    </div>
+                    <div *ngIf="isVaildField('lastName')" class="error-text">
+                        Last Name is required.
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <textarea class="form-control h-100" id="description" rows="5" formControlName="description" placeholder="Enter Description" [class.is-invalid]="isVaildField('description')"></textarea>
+                        <label for="description">Small Description</label>
+                    </div>
+                    <div *ngIf="isVaildField('description')" class="error-text">
+                        Small Description is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="email" placeholder="Enter email" formControlName="email" [class.is-invalid]="isVaildField('email') || isVaildFieldEmail()" />
+                        <label for="email">Email address</label>
+                    </div>
+                    <div *ngIf="isVaildField('email')" class="error-text">
+                        Email is required.
+                    </div>
+                    <div *ngIf="isVaildFieldEmail()" class="error-text">
+                        Invalid Email format.
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row-reverse">
+                <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+                <button type="button" class="btn btn-light me-2" (click)="addImage()"><i class="fa fa-plus"></i> Add image</button>
+            </div>
+        </form>
+    </div>
+</div>
