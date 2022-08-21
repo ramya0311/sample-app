@@ -4,6 +4,8 @@ const formFields = mongoose.model('FormFields');
 const multer = require('multer');
 const fs = require('fs');
 const _ = require('lodash');
+
+//Fileupload Helpers
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, path.join(__dirname, './images/'))
@@ -17,6 +19,13 @@ const multer_upload = multer({
     storage,
     limits: { fileSize: 1 * 1024 * 1024 }, // 1MB
 });
+
+//SENDGRID Credentials
+const SENDGRID_API_KEY = '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';
+const SENDGRID_TEMPLATE_ID = 'd-fa7a77e048b64542b4953889c5ef3463';
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(SENDGRID_API_KEY)
+
 
 var uploadImage = (req, res, img) => {
     return new Promise((resolve, reject) => {
@@ -41,10 +50,38 @@ var uploadImage = (req, res, img) => {
                 }).catch(err => reject(err));
         });
     });
-
-
-
 }
+
+var sendEmail = (data) => {
+    console.log('data', data);
+    const msg = {
+        to: data.email,
+        from: 'fary.hey.nurse@gmail.com',
+        templateId: SENDGRID_TEMPLATE_ID,
+        dynamicTemplateData: {
+            subject: 'Form Data Preview',
+            first_name: data.firstName,
+            last_name: data.lastName,
+            user_name: data.firstName + ' ' + data.lastName,
+            email: data.email,
+            image_upload: data.filesUploaded,
+            small_description: data.smallDescription
+        }
+    };
+    return new Promise((resolve, reject) => {
+        sgMail.send(msg)
+            .then((response) => {
+                console.log('Sendgrid response code', response[0].statusCode)
+                console.log('Sendgrid response header', response[0].headers)
+                return resolve();
+            })
+            .catch((error) => {
+                console.error(error)
+                return reject(error);
+            })
+    });
+}
+
 module.exports.upload = (req, res) => {
     const newFormFields = new formFields(req.fields);
     var filesToUpload = req.files.fileToUpload;
@@ -60,7 +97,13 @@ module.exports.upload = (req, res) => {
             if (err) {
                 res.status(500).send({ message: err.errmsg });
             } else {
-                res.status(200).send({ message: 'File Upload Succesful' });
+                const data = req.fields;
+                data.image_upload = filesToUpload.length;
+                sendEmail(data).then(() => {
+                    res.status(200).send({ message: 'File Upload Succesful' });
+                }).catch((error) => {
+                    res.status(500).send({ message: err });
+                });
             }
         });
     }).catch((error) => {
