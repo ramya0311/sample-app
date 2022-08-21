@@ -1,5 +1,5 @@
 <div class="d-flex container vh-100 flex-row align-items-center">
-    <div class="flex-fill shadow-lg p-3 mb-5 bg-body rounded min-vh-50">
+    <div class="flex-fill shadow-lg p-3 mb-5 bg-body rounded min-vh-80">
         <h5 class="text-center">Simple Form</h5>
         <form [formGroup]="simpleForm">
             <div class="row mb-3">
@@ -12,7 +12,7 @@
                         First Name is required.
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6  mb-3">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Enter Last Name" [class.is-invalid]="isVaildField('lastName')" />
                         <label for="lastName">Last Name</label>
@@ -25,10 +25,10 @@
             <div class="row mb-3">
                 <div class="col-md-12">
                     <div class="form-floating">
-                        <textarea class="form-control h-100" id="description" rows="5" formControlName="description" placeholder="Enter Description" [class.is-invalid]="isVaildField('description')"></textarea>
-                        <label for="description">Small Description</label>
+                        <textarea class="form-control h-100" id="smallDescription" rows="5" formControlName="smallDescription" placeholder="Enter Description" [class.is-invalid]="isVaildField('smallDescription')"></textarea>
+                        <label for="smallDescription">Small Description</label>
                     </div>
-                    <div *ngIf="isVaildField('description')" class="error-text">
+                    <div *ngIf="isVaildField('smallDescription')" class="error-text">
                         Small Description is required.
                     </div>
                 </div>
@@ -51,15 +51,45 @@
             <div class="row mb-3">
                 <input type="file" class="file-input" accept="image/*" (change)="onFileSelected($event)" #fileUpload class="visually-hidden">
             </div>
-            <div class="row mb-3" *ngIf="imagePreviewSrc.length>0">
-                <div class="col-md-6 img-preview" *ngFor="let imageSrc of imagePreviewSrc">
+            <div class="row mb-3 img-container">
+                <div class="col-xs-12 col-md-6 img-preview mb-5" *ngFor="let imageSrc of imagePreviewSrc">
                     <img [src]="imageSrc" class="auto-resize" />
                 </div>
             </div>
             <div class="d-flex flex-row-reverse">
-                <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!simpleForm.valid && uploadedImages.length>0">Save</button>
+                <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!simpleForm.valid && uploadedImages.length === 0">Save</button>
                 <button type="button" class="btn btn-light me-2" (click)="fileUpload.click()"><i class="fa fa-plus"></i> Add image</button>
             </div>
         </form>
+    </div>
+</div>
+
+<div class="overlay" [class.d-block]="isLoading">
+    <div class="overlay-content">
+
+        <h2 class="text-light">Uploading File</h2><br/>
+        <div class="spinner-grow text-primary" role="status"></div>
+        <div class="spinner-grow text-primary" role="status"></div>
+        <div class="spinner-grow text-primary" role="status"></div>
+        <div class="spinner-grow text-primary" role="status"></div>
+        <div class="spinner-grow text-primary" role="status"> </div>
+        <div class="spinner-grow text-primary" role="status"></div>
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" #alertModal id="alertModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-light"><i class="fa fa-envelope me-2"></i>Email sent</h5>
+                <button type="button" data-bs-dismiss="modal" class="close">
+                    <i class="fa fa-close me-2"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Email is successfully sent.Please check your inbox for the form details.</p>
+            </div>
+        </div>
     </div>
 </div>
