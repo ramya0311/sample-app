@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="d-flex flex-row-reverse">
-                <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!simpleForm.valid && uploadedImages.length === 0">Save</button>
+                <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!simpleForm.valid || uploadedImages.length === 0">Save</button>
                 <button type="button" class="btn btn-light me-2" (click)="fileUpload.click()"><i class="fa fa-plus"></i> Add image</button>
             </div>
         </form>
