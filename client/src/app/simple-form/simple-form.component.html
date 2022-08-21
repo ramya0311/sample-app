@@ -2,8 +2,8 @@
     <div class="flex-fill shadow-lg p-3 mb-5 bg-body rounded min-vh-50">
         <h5 class="text-center">Simple Form</h5>
         <form [formGroup]="simpleForm">
-            <div class="row mb-3">
-                <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6 mb-3">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Enter First Name" [class.is-invalid]="isVaildField('firstName')" />
                         <label for="firstName">First Name</label>
@@ -12,7 +12,7 @@
                         First Name is required.
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6  mb-3">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Enter Last Name" [class.is-invalid]="isVaildField('lastName')" />
                         <label for="lastName">Last Name</label>
@@ -25,10 +25,10 @@
             <div class="row mb-3">
                 <div class="col-md-12">
                     <div class="form-floating">
-                        <textarea class="form-control h-100" id="description" rows="5" formControlName="description" placeholder="Enter Description" [class.is-invalid]="isVaildField('description')"></textarea>
-                        <label for="description">Small Description</label>
+                        <textarea class="form-control h-100" id="smallDescription" rows="5" formControlName="smallDescription" placeholder="Enter Description" [class.is-invalid]="isVaildField('smallDescription')"></textarea>
+                        <label for="smallDescription">Small Description</label>
                     </div>
-                    <div *ngIf="isVaildField('description')" class="error-text">
+                    <div *ngIf="isVaildField('smallDescription')" class="error-text">
                         Small Description is required.
                     </div>
                 </div>

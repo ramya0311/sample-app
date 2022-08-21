@@ -6,11 +6,14 @@ const bodyParser = require("body-parser");
 const express = require('express');
 const logger = require('morgan');
 const path = require('path');
+const cors = require('cors');
 const formidable = require('express-formidable');
 
 const routesApi = require('./api/routes/index');
 
 const app = express();
+
+app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(formidable({ multiples: true }));

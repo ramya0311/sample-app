@@ -48,6 +48,7 @@ var uploadImage = (req, res, img) => {
 module.exports.upload = (req, res) => {
     const newFormFields = new formFields(req.fields);
     var filesToUpload = req.files.fileToUpload;
+    console.log('here fileupload', req.files.fileToUpload)
     var promiseArray = [];
     for (var i = 0; i <= filesToUpload.length - 1; i++) {
         promiseArray.push(uploadImage(req, res, filesToUpload[i]));
