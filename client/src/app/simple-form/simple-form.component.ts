@@ -19,7 +19,7 @@ export class SimpleFormComponent {
       email: new FormControl('',[Validators.required, Validators.pattern('^[^\\s@]+@[^\\s@]+\\.[^\\s@]{1,}$')]),
       firstName: new FormControl('',[Validators.required]),
       lastName: new FormControl('',[Validators.required]),
-      description: new FormControl('',[Validators.required]),
+      smallDescription: new FormControl('',[Validators.required]),
     });
   }
 

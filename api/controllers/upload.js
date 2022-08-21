@@ -21,7 +21,7 @@ const multer_upload = multer({
 });
 
 //SENDGRID Credentials
-const SENDGRID_API_KEY = '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';
+const SENDGRID_API_KEY = '<CLIENT_SECRET_ID>';
 const SENDGRID_TEMPLATE_ID = 'd-fa7a77e048b64542b4953889c5ef3463';
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(SENDGRID_API_KEY)
