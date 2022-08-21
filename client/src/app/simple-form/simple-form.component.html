@@ -48,9 +48,17 @@
                     </div>
                 </div>
             </div>
+            <div class="row mb-3">
+                <input type="file" class="file-input" accept="image/*" (change)="onFileSelected($event)" #fileUpload class="visually-hidden">
+            </div>
+            <div class="row mb-3" *ngIf="imagePreviewSrc.length>0">
+                <div class="col-md-6 img-preview" *ngFor="let imageSrc of imagePreviewSrc">
+                    <img [src]="imageSrc" class="auto-resize" />
+                </div>
+            </div>
             <div class="d-flex flex-row-reverse">
-                <button type="button" class="btn btn-primary" (click)="save()">Save</button>
-                <button type="button" class="btn btn-light me-2" (click)="addImage()"><i class="fa fa-plus"></i> Add image</button>
+                <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!simpleForm.valid && uploadedImages.length>0">Save</button>
+                <button type="button" class="btn btn-light me-2" (click)="fileUpload.click()"><i class="fa fa-plus"></i> Add image</button>
             </div>
         </form>
     </div>
