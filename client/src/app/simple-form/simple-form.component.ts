@@ -7,7 +7,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 export class SimpleFormComponent {
   simpleForm:FormGroup;
-
+  uploadedImages = [];
+  imagePreviewSrc = [];
   constructor() {}
 
   ngOnInit() {
@@ -26,11 +27,25 @@ export class SimpleFormComponent {
   isVaildFieldEmail() {
     return this.simpleForm.controls['email'].touched && this.simpleForm.controls['email'].errors && this.simpleForm.controls['email'].hasError('pattern');
   }
+
+  onFileSelected(event) {
+    const file:File = event.target.files[0];
+
+    if (file) {
+      this.uploadedImages.push(file);
+      this.displayImage(file);
+    }
+  }
   save() {
 
   }
 
-  addImage() {
+  displayImage(file) {
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
 
+    fileReader.addEventListener('load', (event) => {
+      this.imagePreviewSrc.push(event.target?.result);
+    })
   }
 }
